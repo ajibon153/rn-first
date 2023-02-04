@@ -1,21 +1,44 @@
-import { useEffect } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
-import { DevSettings } from "react-native";
+import { useEffect, useState } from "react";
+import {
+  Button,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  ScrollView,
+} from "react-native";
 
 export default function App() {
-  useEffect(() => {
-    // if (__DEV__) {
-    //   DevSettings._nativeModule.setHotLoadingEnabled(false);
-    // }
-  }, []);
+  const [EnteredText, setEnteredText] = useState("");
+  const [GoalList, setGoalList] = useState([]);
+
+  function addGoalHandler() {
+    setGoalList((prevGoalList) => [...prevGoalList, EnteredText]);
+    setEnteredText("");
+  }
+  function goalInputHandler(text) {
+    setEnteredText(text);
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
-        <TextInput style={styles.textInput} placeholder="Your goal..." />
-        <Button title="add" />
+        <TextInput
+          style={styles.textInput}
+          onChangeText={goalInputHandler}
+          placeholder="Your goal..."
+          value={EnteredText}
+        />
+        <Button title="add goal" onPress={addGoalHandler} />
       </View>
       <View style={styles.goalsContainer}>
-        <Text>List Goals...</Text>
+        <ScrollView>
+          {GoalList.map((goal, i) => (
+            <View style={styles.goalItem} key={i}>
+              <Text style={styles.goalText}>{goal}</Text>
+            </View>
+          ))}
+        </ScrollView>
       </View>
     </View>
   );
@@ -28,7 +51,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   inputContainer: {
-    // flex: 1,
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
@@ -47,5 +69,14 @@ const styles = StyleSheet.create({
   },
   goalsContainer: {
     flex: 3,
+  },
+  goalItem: {
+    margin: 8,
+    padding: 8,
+    borderRadius: 6,
+    backgroundColor: "#5e0acc",
+  },
+  goalText: {
+    color: "white",
   },
 });
