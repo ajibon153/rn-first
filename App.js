@@ -1,22 +1,30 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
+import { StyleSheet, View, FlatList, Button } from 'react-native';
 import GoalInput from './components/GoalInput';
 import GoalItem from './components/GoalItem';
 
 export default function App() {
   const [GoalList, setGoalList] = useState([]);
+  const [ModalShow, setModalShow] = useState(false);
+
+  function modalPopHandler() {
+    setModalShow(!ModalShow);
+  }
 
   function deleteItemHandler(id) {
-    console.log('delete', id);
-    setGoalList((currentGoal) => {
-      console.log(currentGoal.filter((goal) => goal.id !== id));
-      return currentGoal.filter((goal) => goal.id !== id);
-    });
+    setGoalList((currentGoal) => currentGoal.filter((goal) => goal.id !== id));
   }
 
   return (
     <View style={styles.container}>
-      <GoalInput setGoalList={setGoalList} />
+      <Button title='Add New Goal' onPress={modalPopHandler} color='#5e0acc' />
+      {/* {ModalShow && ( */}
+      <GoalInput
+        setGoalList={setGoalList}
+        ModalShow={ModalShow}
+        modalPopHandler={modalPopHandler}
+      />
+      {/* )} */}
       <View style={styles.goalsContainer}>
         <FlatList
           data={GoalList}
