@@ -7,16 +7,23 @@ import GameScreen from '../screens/GuessGame/GameScreen';
 import Colors from '../constants/colors';
 
 export const GuessGame = () => {
-  const [UserNumber, setUserNumber] = useState();
+  const [UserNumber, setUserNumber] = useState(0);
 
   function pickedNumberHandler(pickedNumber) {
     setUserNumber(pickedNumber);
   }
 
+  function restartNumberHandler() {
+    setUserNumber();
+  }
   let screen = <StartGameScreen onPickNumber={pickedNumberHandler} />;
-
-  if (UserNumber) {
-    screen = <GameScreen />;
+  if (UserNumber > 0) {
+    screen = (
+      <GameScreen
+        UserNumber={UserNumber}
+        restartNumber={restartNumberHandler}
+      />
+    );
   }
 
   return (
