@@ -8,7 +8,7 @@ import {
   Modal,
   Image,
 } from 'react-native';
-import GoalImage from '../assets/goal.png';
+import GoalImage from '../../assets/goal.png';
 
 function GoalInput(props) {
   const [EnteredText, setEnteredText] = useState('');
