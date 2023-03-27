@@ -15,9 +15,9 @@ export const GuessGame = () => {
 
   let screen = <StartGameScreen onPickNumber={pickedNumberHandler} />;
 
-  // if (UserNumber) {
-  //   screen = <GameScreen />;
-  // }
+  if (UserNumber) {
+    screen = <GameScreen />;
+  }
 
   return (
     <LinearGradient
