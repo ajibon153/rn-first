@@ -8,6 +8,7 @@ import StartGameScreen from '../screens/GuessGame/StartGameScreen';
 import GameScreen from '../screens/GuessGame/GameScreen';
 import Colors from '../constants/colors';
 import GameOverScreen from '../screens/GuessGame/GameOverScreen';
+import { StatusBar } from 'expo-status-bar';
 
 export const GuessGame = () => {
   const [UserNumber, setUserNumber] = useState();
@@ -58,19 +59,22 @@ export const GuessGame = () => {
   }
 
   return (
-    <LinearGradient
-      colors={[Colors.primary700, Colors.accent500]}
-      style={styles.rootScreen}
-    >
-      <ImageBackground
-        source={require('../assets/bg/background.png')}
-        resizeMode='cover'
+    <>
+      <StatusBar />
+      <LinearGradient
+        colors={[Colors.primary700, Colors.accent500]}
         style={styles.rootScreen}
-        imageStyle={styles.backgroundImage}
       >
-        <SafeAreaView style={styles.rootScreen}>{screen}</SafeAreaView>
-      </ImageBackground>
-    </LinearGradient>
+        <ImageBackground
+          source={require('../assets/bg/background.png')}
+          resizeMode='cover'
+          style={styles.rootScreen}
+          imageStyle={styles.backgroundImage}
+        >
+          <SafeAreaView style={styles.rootScreen}>{screen}</SafeAreaView>
+        </ImageBackground>
+      </LinearGradient>
+    </>
   );
 };
 
